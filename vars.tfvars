@@ -1,3 +1,3 @@
 StackName = ""
-Region = ""
+Region = "East US"
 PubKeyData = ""
