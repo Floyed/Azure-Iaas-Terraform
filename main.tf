@@ -55,6 +55,18 @@ resource "azurerm_subnet" "main" {
   address_prefixes     = ["10.0.1.0/24"]
 }
 
+resource "azurerm_public_ip" "example" {
+  name                    = "test-pip"
+  location                = azurerm_resource_group.main.location
+  resource_group_name     = azurerm_resource_group.main.name
+  allocation_method       = "Static"
+  idle_timeout_in_minutes = 30
+
+  tags = {
+    environment = "test"
+  }
+}
+
 resource "azurerm_network_interface" "main" {
   name                = "${var.StackName}-nic"
   location            = azurerm_resource_group.main.location
@@ -63,7 +75,8 @@ resource "azurerm_network_interface" "main" {
   ip_configuration {
     name                          = "testconfiguration1"
     subnet_id                     = azurerm_subnet.main.id
-    private_ip_address_allocation = "Static"
+    private_ip_address_allocation = "Dynamic"
+    public_ip_address_id = azurerm_public_ip.example.id
   }
 }
 
