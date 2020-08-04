@@ -1,2 +1,3 @@
 #!/bin/bash
-terraform apply -var-file="vars.tfvars"
+terraform apply \
+-var-file="vars.tfvars"
